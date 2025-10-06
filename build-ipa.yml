@@ -1,0 +1,30 @@
+# This workflow will install the required gems using Bundler to optimize dependency management
+
+name: Build IPA
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '2.7'
+
+    - name: Install Dependencies
+      run: |
+        gem install bundler
+        bundle install
+
+    - name: Build IPA
+      run: |
+        bundle exec fastlane build
