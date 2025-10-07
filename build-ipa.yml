@@ -22,9 +22,13 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        gem install bundler
+        echo "source 'https://rubygems.org'" > Gemfile
+        echo "gem 'fastlane', '~> 2.212.0'" >> Gemfile
+        echo "gem 'rubyzip', '~> 2.3.0'" >> Gemfile
         bundle install
 
+    - name: Verify Fastlane
+      run: bundle exec fastlane --version
+
     - name: Build IPA
-      run: |
-        bundle exec fastlane build
+      run: bundle exec fastlane build
